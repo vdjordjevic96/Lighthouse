@@ -25,7 +25,7 @@ s3 = session.resource('s3')
 
 bucket = s3.Bucket(bucket_name)
 
-for obj in bucket.objects.filter(Prefix="deployments"):
+for obj in bucket.objects.filter(Prefix=source_folder):
     source_key = obj.key
     destination_key = source_key.replace(source_folder, destination_folder, 1)
     s3.Object(bucket_name, destination_key).copy_from(CopySource={'Bucket': bucket_name, 'Key': source_key})
